@@ -79,7 +79,7 @@ func (s *KVStore) Keys() []string {
 	keys := make([]string, 0, len(s.dict))
 	now := time.Now().UnixNano()
 	for k, v := range s.dict {
-		if v.expiration == 0 || now > v.expiration {
+		if v.expiration == 0 || now <= v.expiration {
 			keys = append(keys, k)
 		}
 	}
