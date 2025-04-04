@@ -28,13 +28,31 @@ func TestUniqueEmails(t *testing.T) {
 			},
 			want: 2,
 		},
+		{
+			name:  "empty input",
+			input: []string{},
+			want:  0,
+		},
+		{
+			name: "invalid email format",
+			input: []string{
+				"invalid.email",
+				"test@domain.com",
+			},
+			want: 0,
+		},
+		{
+			name:  "single email",
+			input: []string{"test@domain.com"},
+			want:  1,
+		},
 	}
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			got := UniqueEmails(tt.input)
 			if got != tt.want {
-				t.Errorf("got %q want %q", got, tt.want)
+				t.Errorf("UniqueEmails(%v) = %d, want %d", tt.input, got, tt.want)
 			}
 		})
 	}
